@@ -70,6 +70,17 @@
     _bushParallaxRatio = ccp(0.9, 1);
     _cloudParallaxRatio = ccp(0.5, 1);
 
+    for (CCNode *bush in _bushes) {
+        CGPoint offset = bush.position;
+        [self removeChild:bush];
+        [_parallaxBackground addChild:bush z:0 parallaxRatio:_bushParallaxRatio positionOffset:offset];
+    }
+    
+    for (CCNode *cloud in _clouds) {
+        CGPoint offset = cloud.position;
+        [self removeChild:cloud];
+        [_parallaxBackground addChild:cloud z:0 parallaxRatio:_cloudParallaxRatio positionOffset:offset];
+    }
     
     for (CCNode *ground in _grounds) {
         // set collision txpe
@@ -191,6 +202,8 @@
             }
         }
     }
+    
+    
     _sinceTouch += delta;
     
     character.rotation = clampf(character.rotation, -30.f, 90.f);
